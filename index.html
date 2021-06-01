@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -31,6 +33,11 @@
             height: 100%;
             direction: rtl;
             transition: all 2s linear;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 25px;
 
 
         }
@@ -42,6 +49,9 @@
 
         form {
             margin-top: 0;
+            display: flex;
+            justify-content: center;
+
         }
 
         footer {
@@ -60,9 +70,13 @@
             border-radius: 5px;
             background-color: #0f0f13;
             padding: 0px;
-            width: 1220px;
+            width: 1400px;
             padding: 10px;
 
+        }
+
+        .cusbutton {
+            padding: 11px;
         }
     </style>
 
@@ -70,12 +84,46 @@
 
 <body>
     <div class="container-fluid text-center">
-        <h1 style="font-family: 'Sacramento', cursive; font-size:50px">محاكاة حركة المقذوفات</h1>
-        <form class="form">
-            <input type="number" placeholder="الزاويه" class="frminp" id="angl">
-            <input type="number" placeholder="السرعه" class="frminp" id="vel">
-            <button type="button" class="btn btn-default" id='start'>ابدا</button>
-            <button type="button" class="btn btn-default" id='reset'>اعاده</button>
+        <h1 style="font-family: 'Sacramento', cursive; font-size:50px"> حركة المقذوفات</h1>
+        <form class="row row-cols-lg-auto g-3 align-items-center form">
+            <div class="col-12">
+                <label class="visually-hidden" fid="angl">الزاويه</label>
+                <div class="input-group">
+                    <div class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                            <path
+                                d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+                        </svg></div>
+                    <input type="number" class="input-lg form-control" id="angl" placeholder="الزاويه">
+                </div>
+            </div>
+
+            <div class="col-12">
+                <label class="visually-hidden" fid="angl">السرعه</label>
+                <div class="input-group">
+                    <div class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            fill="currentColor" class="bi bi-speedometer2" viewBox="0 0 16 16">
+                            <path
+                                d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z" />
+                            <path fill-rule="evenodd"
+                                d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z" />
+                        </svg></div>
+                    <input type="number" class="input-lg form-control" id="vel" placeholder="السرعه">
+                </div>
+            </div>
+
+            <div class="col-12">
+                <button id='start' type="button" class="input-lg btn btn-primary cusbutton">ابتدي</button>
+            </div>
+            <div class="col-12">
+                <button id='reset' type="button" class="input-lg btn btn-primary cusbutton">عيد</button>
+            </div>
+            <!-- <input type="number" placeholder="الزاويه" class="frminp" id="angl"> -->
+            <!-- <input type="number" placeholder="السرعه" class="frminp" id="vel"> -->
+            <!-- <button type="button" class="btn btn-default" id='start'>ابدا</button>
+            <button type="button" class="btn btn-default" id='reset'>اعاده</button> -->
         </form>
         <div id="renderport"></div>
 
@@ -88,219 +136,10 @@
         Made by <a href="https://github.com/beetrandahiya">Prakrisht Dahiya</a> using <a href=""><img
                 src="https://miro.medium.com/max/1000/1*7eTJiUndx4MiCrLuJkQqdA.png" width="80px"></a>
     </footer>
-    <!-- <script>
-        let runExperiment;
-        document.addEventListener("DOMContentLoaded", function () {
-            function experimentController() {
-                // control variables
-                const domElements = {
-                    'renderPort': 'renderport',
-                    'footer': 'ftr',
-                    'angle': 'angl',
-                    'velocity': 'vel',
-                    'startButton': 'start'
-                },
-                    Engine = Matter.Engine,
-                    Events = Matter.Events,
-                    Render = Matter.Render,
-                    Runner = Matter.Runner,
-                    Body = Matter.Body,
-                    Composite = Matter.Composite,
-                    Composites = Matter.Composites,
-                    Constraint = Matter.Constraint,
-                    MouseConstraint = Matter.MouseConstraint,
-                    Mouse = Matter.Mouse,
-                    World = Matter.World,
-                    Bodies = Matter.Bodies,
-                    Vector = Matter.Vector;
-
-                let engine, render, angle, vx, vy, ground, ball, trail = [], mouse;
-
-                let renderPort = document.getElementById(domElements['renderPort'])
-                let footer = document.getElementById(domElements['footer'])
-                let angleInput = document.getElementById(domElements['angle'])
-                let velocityInput = document.getElementById(domElements['velocity'])
-                let startButton = document.getElementById(domElements['startButton'])
-
-
-                engine = Engine.create();
-                render = Render.create({
-                    element: document.getElementById(domElements[renderPort]),
-                    engine: engine,
-                    options: {
-                        width: 1200,
-                        height: 450,
-                        showVelocity: true,
-                        showCollisions: true,
-                        background: '#0f0f13'
-                    }
-                });
-                engine.world.gravity.y = 1;
-                ball = Bodies.circle(50, 390, 30, { friction: 0, frictionAir: 0, restitution: 1 });
-                ground = Bodies.rectangle(400, 450, 2000, 60, { isStatic: true });
-
-                function initInputData() {
-                    angle = angleInput.value;
-                    angle = angle * (Math.PI) / 180;
-
-                    v = velocityInput.value;
-                    vx = v * (Math.cos(angle));
-                    vy = -v * (Math.sin(angle));
-                }
-
-
-
-                Engine.run(engine);
-                // run the renderer
-                Render.run(render);
-                Matter.Body.setVelocity(ball, { x: 20, y: vy });
-                // add all of the bodies to the world
-                World.add(engine.world, [ground, ball]);
-                function run() {
-                    console.log('ruuuuuuuuuuuuuuuunnnnnnnnnnnnnnn')
-                    renderPort.style.padding = "10px";
-                    console.log("🚀 ~ file: index.html ~ line 156 ~ run ~ renderPort.style", renderPort.style)
-                    footer.style.position = 'relative';
-                    console.log("🚀 ~ file: index.html ~ line 157 ~ run ~ footer.style.", footer.style.position)
-                    initInputData()
-                    Matter.Body.setVelocity(ball, { x: vx, y: vy });
-                    // add all of the bodies to the world
-                    World.add(engine.world, [ground, ball]);
-                    // add mouse control
-                    // // 
-                    Engine.run(engine);
-                    //                 // run the renderer
-                    Render.run(render);
-                }
-                startButton.addEventListener("click", run);
-
-            }
-            experimentController();
-        })
-    </script> -->
-
     <script>
 
 
         document.addEventListener("DOMContentLoaded", function () {
-            //    let domElements= {
-            //             'renderPort': 'renderport',
-            //             'footer': 'ftr',
-            //             'angle': 'angl',
-            //             'velocity': 'vel',
-            //             'startButton': 'start',
-            //             'resetButton': 'reset',
-            //         }
-
-            //     expController = {
-
-
-
-            //         renderPort: document.getElementById(domElements['renderPort']),
-            //         footer: document.getElementById(domElements['footer']),
-            //         angleInput: document.getElementById(domElements['angle']),
-            //         velocityInput: document.getElementById(domElements['velocity']),
-            //         startButton: document.getElementById(domElements['startButton']),
-            //         resetButton: document.getElementById(domElements['resetButton']),
-
-
-            //         Engine: Matter.Engine,
-            //         Events: Matter.Events,
-            //         Render: Matter.Render,
-            //         Runner: Matter.Runner,
-            //         Body: Matter.Body,
-            //         Composite: Matter.Composite,
-            //         Composites: Matter.Composites,
-            //         Constraint: Matter.Constraint,
-            //         MouseConstraint: Matter.MouseConstraint,
-            //         Mouse: Matter.Mouse,
-            //         World: Matter.World,
-            //         Bodies: Matter.Bodies,
-            //         Vector: Matter.Vector,
-
-            //         engine: null,
-            //         render: null,
-            //         engine: null,
-            //         ground: null,
-            //         ball: null,
-
-
-            //         init: function () {
-            //             state.init();
-            //             this.engine = this.Engine.create();
-            //             // create a renderer
-            //             this.render = this.Render.create({
-            //                 element: document.getElementById('renderport'),
-            //                 engine: this.engine,
-            //                 options: {
-            //                     width: 1200,
-            //                     height: 450,
-            //                     //showVelocity: true,
-            //                     //showCollisions: true,
-
-            //                     background: '#0f0f13'
-            //                 }
-            //             });
-
-            //             this.ground = this.Bodies.rectangle(400, 450, 2000, 60, { isStatic: true });
-
-            //             this.engine.world.gravity.y = 1;
-
-            //             this.World.add(this.engine.world, [this.ground]);
-            //             // run the engine
-            //             this.Engine.run(this.engine);
-            //             // run the renderer
-            //             this.Render.run(this.render);
-
-            //             this.startButton.addEventListener("click", this.run);
-            //             this.resetButton.addEventListener("click", this.reset);
-            //         },
-            //         run: function () {
-            //             var angle = $("#angl").val();
-            //             angle = angle * (Math.PI) / 180;
-            //             var v = $("#vel").val();
-            //             vx = v * (Math.cos(angle));
-            //             vy = -v * (Math.sin(angle));
-            //             this.ball = this.Bodies.circle(50, 390, 30, { friction: 0, frictionAir: 0, restitution: 1 });
-            //             this.Matter.Body.setVelocity(this.ball, { x: vx, y: vy });
-            //             // add all of the bodies to the world
-            //             this.World.add(this.engine.world, [this.ball]);
-            //             state.toggleStartRest()
-
-            //         },
-            //         reset: function () {
-            //             this.Matter.World.remove(this.engine.world, [this.ball])
-            //             state.toggleStartRest()
-            //             this.angleInput.value = ""
-            //             this.velocityInput.value = ""
-            //         }
-
-            //     }
-
-            //     const state = { 
-            //         toStart: true,
-            //         init: function () {
-            //             this.resetButton.style.display = "none";
-            //             console.log("🚀 ~ file: index.html ~ line 223 ~ resetButton.style.display", resetButton.style.display)
-            //         },
-            //         toggleStartRest: function () {
-            //             console.log("🚀 ~ file: index.html ~ line 228 ~ this.toStart", this.toStart)
-
-            //             if (this.toStart) {
-            //                 this.startButton.style.display = "none";
-            //                 this.resetButton.style.display = "inline";
-            //             } else {
-            //                 this.resetButton.style.display = "none";
-            //                 this.startButton.style.display = "inline";
-            //             }
-            //             this.toStart = !this.toStart
-            //         }
-            //     }
-
-
-            //     expController.init()
-
-
             const domElements = {
                 'renderPort': 'renderport',
                 'footer': 'ftr',
@@ -317,9 +156,11 @@
                 startButton = document.getElementById(domElements['startButton']),
                 resetButton = document.getElementById(domElements['resetButton']),
                 ball,
-                ballStartPosition = { x: 90, y: 390 }
+                ballStartPosition = { x: 90, y: 390 },
+                renderWidt = 1350,
+                renderHeight = 700;
             // module aliases
-            var Engine = Matter.Engine,
+            const Engine = Matter.Engine,
                 Events = Matter.Events,
                 Render = Matter.Render,
                 Runner = Matter.Runner,
@@ -362,8 +203,8 @@
                 element: document.getElementById('renderport'),
                 engine: engine,
                 options: {
-                    width: 1200,
-                    height: 450,
+                    width: renderWidt,
+                    height: renderHeight,
                     //showVelocity: true,
                     //showCollisions: true,
 
@@ -371,9 +212,9 @@
                 }
             });
 
-            var ground = Bodies.rectangle(400, 450, 2000, 60, {
+            var ground = Bodies.rectangle(400, renderHeight - 5, 5000, 60, {
                 isStatic: true,
-                 render: {
+                render: {
                     fillStyle: '#fed73e',
                     lineWidth: 5,
                     strokeStyle: '#000',
@@ -381,7 +222,7 @@
             });
             ball = Bodies.circle(90, 390, 30, {
                 // friction: 0, frictionAir: 0, restitution: 1,
-                 render: {
+                render: {
                     fillStyle: '#dd4444',
                     strokeStyle: '#222222',
                     lineWidth: 3,
@@ -399,6 +240,8 @@
 
 
             function run() {
+                if (velocityInput.value === "" || angleInput.value === "") return
+                console.log("🚀 ~ file: index.html ~ line 232 ~ run ~ velocityInput", velocityInput.value)
                 velocityInput.disabled = true;
                 angleInput.disabled = true;
                 //calculating horizontal and vertical velocity
