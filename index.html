@@ -1,0 +1,439 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.11.0/matter.min.js"
+        type="application/javascript"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        .frminp {
+            border: none;
+            margin: 2em;
+            /* margin-top:1em; */
+            margin-bottom: 1em;
+            padding: 0.5em;
+            color: black;
+            border-radius: 0;
+        }
+
+        body {
+            background-color: #f5f5f7;
+            color: #0f0f13;
+            height: 100%;
+            direction: rtl;
+            transition: all 2s linear;
+
+
+        }
+
+        a {
+            text-decoration: none;
+            color: #0f0f13;
+        }
+
+        form {
+            margin-top: 0;
+        }
+
+        footer {
+            background-color: #f0f0f0;
+            margin-top: 1em;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            padding-top: 1em;
+            padding-bottom: 1em;
+            width: 100%;
+        }
+
+        #renderport {
+            margin: auto;
+            border-radius: 5px;
+            background-color: #0f0f13;
+            padding: 0px;
+            width: 1220px;
+            padding: 10px;
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container-fluid text-center">
+        <h1 style="font-family: 'Sacramento', cursive; font-size:50px">محاكاة حركة المقذوفات</h1>
+        <form class="form">
+            <input type="number" placeholder="الزاويه" class="frminp" id="angl">
+            <input type="number" placeholder="السرعه" class="frminp" id="vel">
+            <button type="button" class="btn btn-default" id='start'>ابدا</button>
+            <button type="button" class="btn btn-default" id='reset'>اعاده</button>
+        </form>
+        <div id="renderport"></div>
+
+    </div>
+
+
+
+
+    <footer class="footer" id="ftr">
+        Made by <a href="https://github.com/beetrandahiya">Prakrisht Dahiya</a> using <a href=""><img
+                src="https://miro.medium.com/max/1000/1*7eTJiUndx4MiCrLuJkQqdA.png" width="80px"></a>
+    </footer>
+    <!-- <script>
+        let runExperiment;
+        document.addEventListener("DOMContentLoaded", function () {
+            function experimentController() {
+                // control variables
+                const domElements = {
+                    'renderPort': 'renderport',
+                    'footer': 'ftr',
+                    'angle': 'angl',
+                    'velocity': 'vel',
+                    'startButton': 'start'
+                },
+                    Engine = Matter.Engine,
+                    Events = Matter.Events,
+                    Render = Matter.Render,
+                    Runner = Matter.Runner,
+                    Body = Matter.Body,
+                    Composite = Matter.Composite,
+                    Composites = Matter.Composites,
+                    Constraint = Matter.Constraint,
+                    MouseConstraint = Matter.MouseConstraint,
+                    Mouse = Matter.Mouse,
+                    World = Matter.World,
+                    Bodies = Matter.Bodies,
+                    Vector = Matter.Vector;
+
+                let engine, render, angle, vx, vy, ground, ball, trail = [], mouse;
+
+                let renderPort = document.getElementById(domElements['renderPort'])
+                let footer = document.getElementById(domElements['footer'])
+                let angleInput = document.getElementById(domElements['angle'])
+                let velocityInput = document.getElementById(domElements['velocity'])
+                let startButton = document.getElementById(domElements['startButton'])
+
+
+                engine = Engine.create();
+                render = Render.create({
+                    element: document.getElementById(domElements[renderPort]),
+                    engine: engine,
+                    options: {
+                        width: 1200,
+                        height: 450,
+                        showVelocity: true,
+                        showCollisions: true,
+                        background: '#0f0f13'
+                    }
+                });
+                engine.world.gravity.y = 1;
+                ball = Bodies.circle(50, 390, 30, { friction: 0, frictionAir: 0, restitution: 1 });
+                ground = Bodies.rectangle(400, 450, 2000, 60, { isStatic: true });
+
+                function initInputData() {
+                    angle = angleInput.value;
+                    angle = angle * (Math.PI) / 180;
+
+                    v = velocityInput.value;
+                    vx = v * (Math.cos(angle));
+                    vy = -v * (Math.sin(angle));
+                }
+
+
+
+                Engine.run(engine);
+                // run the renderer
+                Render.run(render);
+                Matter.Body.setVelocity(ball, { x: 20, y: vy });
+                // add all of the bodies to the world
+                World.add(engine.world, [ground, ball]);
+                function run() {
+                    console.log('ruuuuuuuuuuuuuuuunnnnnnnnnnnnnnn')
+                    renderPort.style.padding = "10px";
+                    console.log("🚀 ~ file: index.html ~ line 156 ~ run ~ renderPort.style", renderPort.style)
+                    footer.style.position = 'relative';
+                    console.log("🚀 ~ file: index.html ~ line 157 ~ run ~ footer.style.", footer.style.position)
+                    initInputData()
+                    Matter.Body.setVelocity(ball, { x: vx, y: vy });
+                    // add all of the bodies to the world
+                    World.add(engine.world, [ground, ball]);
+                    // add mouse control
+                    // // 
+                    Engine.run(engine);
+                    //                 // run the renderer
+                    Render.run(render);
+                }
+                startButton.addEventListener("click", run);
+
+            }
+            experimentController();
+        })
+    </script> -->
+
+    <script>
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            //    let domElements= {
+            //             'renderPort': 'renderport',
+            //             'footer': 'ftr',
+            //             'angle': 'angl',
+            //             'velocity': 'vel',
+            //             'startButton': 'start',
+            //             'resetButton': 'reset',
+            //         }
+
+            //     expController = {
+
+
+
+            //         renderPort: document.getElementById(domElements['renderPort']),
+            //         footer: document.getElementById(domElements['footer']),
+            //         angleInput: document.getElementById(domElements['angle']),
+            //         velocityInput: document.getElementById(domElements['velocity']),
+            //         startButton: document.getElementById(domElements['startButton']),
+            //         resetButton: document.getElementById(domElements['resetButton']),
+
+
+            //         Engine: Matter.Engine,
+            //         Events: Matter.Events,
+            //         Render: Matter.Render,
+            //         Runner: Matter.Runner,
+            //         Body: Matter.Body,
+            //         Composite: Matter.Composite,
+            //         Composites: Matter.Composites,
+            //         Constraint: Matter.Constraint,
+            //         MouseConstraint: Matter.MouseConstraint,
+            //         Mouse: Matter.Mouse,
+            //         World: Matter.World,
+            //         Bodies: Matter.Bodies,
+            //         Vector: Matter.Vector,
+
+            //         engine: null,
+            //         render: null,
+            //         engine: null,
+            //         ground: null,
+            //         ball: null,
+
+
+            //         init: function () {
+            //             state.init();
+            //             this.engine = this.Engine.create();
+            //             // create a renderer
+            //             this.render = this.Render.create({
+            //                 element: document.getElementById('renderport'),
+            //                 engine: this.engine,
+            //                 options: {
+            //                     width: 1200,
+            //                     height: 450,
+            //                     //showVelocity: true,
+            //                     //showCollisions: true,
+
+            //                     background: '#0f0f13'
+            //                 }
+            //             });
+
+            //             this.ground = this.Bodies.rectangle(400, 450, 2000, 60, { isStatic: true });
+
+            //             this.engine.world.gravity.y = 1;
+
+            //             this.World.add(this.engine.world, [this.ground]);
+            //             // run the engine
+            //             this.Engine.run(this.engine);
+            //             // run the renderer
+            //             this.Render.run(this.render);
+
+            //             this.startButton.addEventListener("click", this.run);
+            //             this.resetButton.addEventListener("click", this.reset);
+            //         },
+            //         run: function () {
+            //             var angle = $("#angl").val();
+            //             angle = angle * (Math.PI) / 180;
+            //             var v = $("#vel").val();
+            //             vx = v * (Math.cos(angle));
+            //             vy = -v * (Math.sin(angle));
+            //             this.ball = this.Bodies.circle(50, 390, 30, { friction: 0, frictionAir: 0, restitution: 1 });
+            //             this.Matter.Body.setVelocity(this.ball, { x: vx, y: vy });
+            //             // add all of the bodies to the world
+            //             this.World.add(this.engine.world, [this.ball]);
+            //             state.toggleStartRest()
+
+            //         },
+            //         reset: function () {
+            //             this.Matter.World.remove(this.engine.world, [this.ball])
+            //             state.toggleStartRest()
+            //             this.angleInput.value = ""
+            //             this.velocityInput.value = ""
+            //         }
+
+            //     }
+
+            //     const state = { 
+            //         toStart: true,
+            //         init: function () {
+            //             this.resetButton.style.display = "none";
+            //             console.log("🚀 ~ file: index.html ~ line 223 ~ resetButton.style.display", resetButton.style.display)
+            //         },
+            //         toggleStartRest: function () {
+            //             console.log("🚀 ~ file: index.html ~ line 228 ~ this.toStart", this.toStart)
+
+            //             if (this.toStart) {
+            //                 this.startButton.style.display = "none";
+            //                 this.resetButton.style.display = "inline";
+            //             } else {
+            //                 this.resetButton.style.display = "none";
+            //                 this.startButton.style.display = "inline";
+            //             }
+            //             this.toStart = !this.toStart
+            //         }
+            //     }
+
+
+            //     expController.init()
+
+
+            const domElements = {
+                'renderPort': 'renderport',
+                'footer': 'ftr',
+                'angle': 'angl',
+                'velocity': 'vel',
+                'startButton': 'start',
+                'resetButton': 'reset',
+            }
+
+            let renderPort = document.getElementById(domElements['renderPort']),
+                footer = document.getElementById(domElements['footer']),
+                angleInput = document.getElementById(domElements['angle']),
+                velocityInput = document.getElementById(domElements['velocity']),
+                startButton = document.getElementById(domElements['startButton']),
+                resetButton = document.getElementById(domElements['resetButton']),
+                ball,
+                ballStartPosition = { x: 90, y: 390 }
+            // module aliases
+            var Engine = Matter.Engine,
+                Events = Matter.Events,
+                Render = Matter.Render,
+                Runner = Matter.Runner,
+                Body = Matter.Body,
+                Composite = Matter.Composite,
+                Composites = Matter.Composites,
+                Constraint = Matter.Constraint,
+                MouseConstraint = Matter.MouseConstraint,
+                Mouse = Matter.Mouse,
+                World = Matter.World,
+                Bodies = Matter.Bodies,
+                Vector = Matter.Vector;
+
+
+            const state = {
+                toStart: true,
+                init: function () {
+                    resetButton.style.display = "none";
+                    console.log("🚀 ~ file: index.html ~ line 223 ~ resetButton.style.display", resetButton.style.display)
+                },
+                toggleStartRest: function () {
+                    console.log("🚀 ~ file: index.html ~ line 228 ~ this.toStart", this.toStart)
+
+                    if (this.toStart) {
+                        startButton.style.display = "none";
+                        resetButton.style.display = "inline";
+                    } else {
+                        resetButton.style.display = "none";
+                        startButton.style.display = "inline";
+                    }
+                    this.toStart = !this.toStart
+                }
+            }
+
+            state.init();
+            // create an engine
+            var engine = Engine.create();
+            // create a renderer
+            var render = Render.create({
+                element: document.getElementById('renderport'),
+                engine: engine,
+                options: {
+                    width: 1200,
+                    height: 450,
+                    //showVelocity: true,
+                    //showCollisions: true,
+
+                    background: '#FFFFFF'
+                }
+            });
+
+            var ground = Bodies.rectangle(400, 450, 2000, 60, {
+                isStatic: true,
+                 render: {
+                    fillStyle: '#fed73e',
+                    lineWidth: 5,
+                    strokeStyle: '#000',
+                }
+            });
+            ball = Bodies.circle(90, 390, 30, {
+                // friction: 0, frictionAir: 0, restitution: 1,
+                 render: {
+                    fillStyle: '#dd4444',
+                    strokeStyle: '#222222',
+                    lineWidth: 3,
+                }
+            });
+
+
+            engine.world.gravity.y = 1;
+
+            World.add(engine.world, [ground, ball]);
+            // run the engine
+            Engine.run(engine);
+            // run the renderer
+            Render.run(render);
+
+
+            function run() {
+                velocityInput.disabled = true;
+                angleInput.disabled = true;
+                //calculating horizontal and vertical velocity
+                var angle = $("#angl").val();
+                angle = angle * (Math.PI) / 180;
+                var v = $("#vel").val();
+                vx = v * (Math.cos(angle));
+                vy = -v * (Math.sin(angle));
+                Matter.Body.setVelocity(ball, { x: vx, y: vy });
+                // add all of the bodies to the world
+                // World.add(engine.world, [ball]);
+                state.toggleStartRest()
+
+
+            }
+
+            function reset() {
+                velocityInput.disabled = false;
+                angleInput.disabled = false;
+                // Matter.World.remove(engine.world, [ball])
+                Matter.Body.setVelocity(ball, { x: 0, y: 0 });
+                Matter.Body.setPosition(ball, ballStartPosition);
+
+                state.toggleStartRest()
+                angleInput.value = ""
+                velocityInput.value = ""
+
+            }
+
+            startButton.addEventListener("click", run);
+            resetButton.addEventListener("click", reset);
+
+        })
+    </script>
+
+</body>
+
+</html>
