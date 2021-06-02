@@ -1,14 +1,16 @@
 <html>
 
 <head>
+    <!-- matter.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.11.0/matter.min.js"
         type="application/javascript"></script>
+
+    <!-- bootstrap library -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
+    <!-- introjs libraries -->
     <link href="https://unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet">
     <link href="https://unpkg.com/intro.js/themes/introjs-modern.css" rel="stylesheet">
     <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
@@ -19,6 +21,9 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <style>
         .frminp {
@@ -123,29 +128,17 @@
                 <button id='positionReset' type="button" class="input-lg btn btn-primary cusbutton">رجع الكوره مكانها
                     الاول</button>
             </div>
+
             <div class="col-12">
                 <button id='start' type="button" class="input-lg btn btn-primary cusbutton">ابتدي</button>
             </div>
             <div class="col-12">
                 <button id='reset' type="button" class="input-lg btn btn-primary cusbutton">عيد</button>
             </div>
-
-            <!-- <input type="number" placeholder="الزاويه" class="frminp" id="angl"> -->
-            <!-- <input type="number" placeholder="السرعه" class="frminp" id="vel"> -->
-            <!-- <button type="button" class="btn btn-default" id='start'>ابدا</button>
-            <button type="button" class="btn btn-default" id='reset'>اعاده</button> -->
         </form>
         <div id="renderport"></div>
 
     </div>
-
-
-
-
-    <!-- <footer class="footer" id="ftr">
-        Made by <a href="https://github.com/beetrandahiya">Prakrisht Dahiya</a> using <a href=""><img
-                src="https://miro.medium.com/max/1000/1*7eTJiUndx4MiCrLuJkQqdA.png" width="80px"></a>
-    </footer> -->
     <script>
 
 
@@ -175,21 +168,14 @@
                 ballStartPosition = { x: 90, y: 390 },
                 renderWidt = 1370,
                 renderHeight = 700;
-            // module aliases
-            const Engine = Matter.Engine,
-                Events = Matter.Events,
-                Render = Matter.Render,
-                Runner = Matter.Runner,
-                Body = Matter.Body,
-                Composite = Matter.Composite,
-                Composites = Matter.Composites,
-                Constraint = Matter.Constraint,
-                MouseConstraint = Matter.MouseConstraint,
-                Mouse = Matter.Mouse,
-                World = Matter.World,
-                Bodies = Matter.Bodies,
-                Vector = Matter.Vector;
 
+
+            const { Engine, Events, Render, Runner, Body,
+                Composite, Composites, Constraint, MouseConstraint,
+                Mouse, World, Bodies, Vector } = Matter
+
+            /***** start intro part *****/
+            // introduce how to use the simulation
             function intro() {
 
                 let firstTime = localStorage.getItem('projictile7771777_first_time');
@@ -200,11 +186,13 @@
                     nextLabel: "كمل",
                     doneLabel: "تمام",
                     steps: [{
-                        // element: header,
                         intro: "اهلا بيك في تجربه حركه المقذوفات 	&#127881;	&#127881;	&#127881;"
                     }, {
                         element: renderPort,
                         intro: "حرك الكوره في المكان اللي انت حابب تبتدي بيه "
+                    }, {
+                        element: positionResetButton,
+                        intro: " تقدر ترجع الكوره مكانها الاصلي"
                     }, {
                         element: angleInput,
                         intro: "دخل الزاويه"
@@ -224,9 +212,10 @@
 
                 localStorage.setItem('projictile7771777_first_time', true)
             }
-
             intro()
+            /***** end intro part *****/
 
+            /***** start state part *****/
             const state = {
                 toStart: true,
                 init: function () {
@@ -244,19 +233,18 @@
                     this.toStart = !this.toStart
                 }
             }
-
             state.init();
-            // create an engine
+            /***** end state part *****/
+
+
+            /**** start initializing matter.js the env ****/
             let engine = Engine.create();
-            // create a renderer
             let render = Render.create({
-                element: document.getElementById('renderport'),
+                element: renderPort,
                 engine: engine,
                 options: {
                     width: renderWidt,
                     height: renderHeight,
-                    //showVelocity: true,
-                    //showCollisions: true,
                     wireframes: false,
                     background: '#161515'
                 }
@@ -271,56 +259,55 @@
                     },
                 },
             });
-
-
-            let ground = Bodies.rectangle(400, renderHeight - 5, 5000, 60, {
+            const ground = Bodies.rectangle(400, renderHeight - 5, 5000, 60, {
                 isStatic: true
             });
             ball = Bodies.circle(90, 390, 30, {
-                // friction: 0, frictionAir: 0, restitution: 1,
                 render: {
                     fillStyle: '#dd4444',
                     strokeStyle: '#2b2b2c',
                     lineWidth: 3,
                 }
             });
-
-
             engine.world.gravity.y = 1;
-
             World.add(engine.world, [ground, ball, mouseConstraint]);
-            // run the engine
             Engine.run(engine);
-            // run the renderer
             Render.run(render);
+            /**** start initializing matter.js the env ****/
 
 
             function run() {
-                if (velocityInput.value === "" || angleInput.value === "") return
+
+                if (velocityInput.value.trim() === "" || angleInput.value.trim() === "") return
+
                 velocityInput.disabled = true;
                 angleInput.disabled = true;
+                positionResetButton.disabled = true;
+
                 //calculating horizontal and vertical velocity
-                var angle = $("#angl").val();
+                let angle = angleInput.value;
                 angle = angle * (Math.PI) / 180;
-                var v = $("#vel").val();
+                let v = velocityInput.value;
                 vx = v * (Math.cos(angle));
                 vy = -v * (Math.sin(angle));
+
                 Matter.Body.setVelocity(ball, { x: vx, y: vy });
-                // add all of the bodies to the world
-                // World.add(engine.world, [ball]);
                 state.toggleStartRest()
 
 
             }
 
             function reset() {
+
                 velocityInput.disabled = false;
                 angleInput.disabled = false;
-                // Matter.World.remove(engine.world, [ball])
+                positionResetButton.disabled = false;
+
                 Matter.Body.setVelocity(ball, { x: 0, y: 0 });
                 Matter.Body.setPosition(ball, ballStartPosition);
 
                 state.toggleStartRest()
+
                 angleInput.value = ""
                 velocityInput.value = ""
 
@@ -330,6 +317,7 @@
                 Matter.Body.setPosition(ball, ballStartPosition);
             }
 
+            // add event listeners
             startButton.addEventListener("click", run);
             resetButton.addEventListener("click", reset);
             positionResetButton.addEventListener("click", positionReset);
