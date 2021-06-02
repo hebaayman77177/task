@@ -9,6 +9,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
+    <link href="https://unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/intro.js/themes/introjs-modern.css" rel="stylesheet">
+    <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -32,7 +36,7 @@
             color: #0f0f13;
             height: 100%;
             direction: rtl;
-            transition: all 2s linear;
+            transition: all 1s linear;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -78,13 +82,25 @@
         .cusbutton {
             padding: 11px;
         }
+
+        .introjs-prevbutton {
+            float: right;
+        }
+
+        .introjs-nextbutton {
+            float: left;
+        }
+
+        .introjs-tooltip {
+            font-size: 20px;
+        }
     </style>
 
 </head>
 
 <body>
     <div class="container-fluid text-center">
-        <h1 style="font-family: 'Sacramento', cursive; font-size:50px"> حركة المقذوفات</h1>
+        <h1 id="header" style="font-family: 'Sacramento', cursive; font-size:50px"> حركة المقذوفات</h1>
         <form class="row row-cols-lg-auto g-3 align-items-center form">
             <div class="col-12">
                 <label class="visually-hidden" fid="angl">الزاويه</label>
@@ -132,14 +148,15 @@
 
 
 
-    <footer class="footer" id="ftr">
+    <!-- <footer class="footer" id="ftr">
         Made by <a href="https://github.com/beetrandahiya">Prakrisht Dahiya</a> using <a href=""><img
                 src="https://miro.medium.com/max/1000/1*7eTJiUndx4MiCrLuJkQqdA.png" width="80px"></a>
-    </footer>
+    </footer> -->
     <script>
 
 
         document.addEventListener("DOMContentLoaded", function () {
+
             const domElements = {
                 'renderPort': 'renderport',
                 'footer': 'ftr',
@@ -147,6 +164,7 @@
                 'velocity': 'vel',
                 'startButton': 'start',
                 'resetButton': 'reset',
+                'header': 'header'
             }
 
             let renderPort = document.getElementById(domElements['renderPort']),
@@ -155,6 +173,7 @@
                 velocityInput = document.getElementById(domElements['velocity']),
                 startButton = document.getElementById(domElements['startButton']),
                 resetButton = document.getElementById(domElements['resetButton']),
+                header = document.getElementById(domElements['header']),
                 ball,
                 ballStartPosition = { x: 90, y: 390 },
                 renderWidt = 1350,
@@ -174,15 +193,46 @@
                 Bodies = Matter.Bodies,
                 Vector = Matter.Vector;
 
+            function intro() {
+
+                let firstTime = localStorage.getItem('projictile7771777_first_time');
+                if (firstTime !== null) return
+
+                introJs().setOptions({
+                    prevLabel: "ارجع",
+                    nextLabel: "كمل",
+                    doneLabel: "تمام",
+                    steps: [{
+                        // element: header,
+                        intro: "اهلا بيك في تجربه حركه المقذوفات 	&#127881;	&#127881;	&#127881;"
+                    }, {
+                        element: angleInput,
+                        intro: "دخل الزاويه"
+                    }
+                        , {
+                        element: velocityInput,
+                        intro: "دخل السرعه"
+                    }, {
+                        element: startButton,
+                        intro: "ابتدي"
+                    }, {
+                        element: startButton,
+                        intro: "دوس اعاده عشان تكمل تاني"
+                    }
+                    ]
+                }).start();
+
+                localStorage.setItem('projictile7771777_first_time', true)
+            }
+
+            intro()
 
             const state = {
                 toStart: true,
                 init: function () {
                     resetButton.style.display = "none";
-                    console.log("🚀 ~ file: index.html ~ line 223 ~ resetButton.style.display", resetButton.style.display)
                 },
                 toggleStartRest: function () {
-                    console.log("🚀 ~ file: index.html ~ line 228 ~ this.toStart", this.toStart)
 
                     if (this.toStart) {
                         startButton.style.display = "none";
