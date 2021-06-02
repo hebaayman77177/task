@@ -247,9 +247,9 @@
 
             state.init();
             // create an engine
-            var engine = Engine.create();
+            let engine = Engine.create();
             // create a renderer
-            var render = Render.create({
+            let render = Render.create({
                 element: document.getElementById('renderport'),
                 engine: engine,
                 options: {
@@ -261,8 +261,19 @@
                     background: '#FFFFFF'
                 }
             });
+            const mouse = Mouse.create(render.canvas);
+            let mouseConstraint = MouseConstraint.create(engine, {
+                mouse,
+                constraint: {
+                    stiffness: 1,
+                    render: {
+                        visible: false,
+                    },
+                },
+            });
 
-            var ground = Bodies.rectangle(400, renderHeight - 5, 5000, 60, {
+
+            let ground = Bodies.rectangle(400, renderHeight - 5, 5000, 60, {
                 isStatic: true,
                 render: {
                     fillStyle: '#fed73e',
@@ -282,7 +293,7 @@
 
             engine.world.gravity.y = 1;
 
-            World.add(engine.world, [ground, ball]);
+            World.add(engine.world, [ground, ball, mouseConstraint]);
             // run the engine
             Engine.run(engine);
             // run the renderer
@@ -291,7 +302,6 @@
 
             function run() {
                 if (velocityInput.value === "" || angleInput.value === "") return
-                console.log("🚀 ~ file: index.html ~ line 232 ~ run ~ velocityInput", velocityInput.value)
                 velocityInput.disabled = true;
                 angleInput.disabled = true;
                 //calculating horizontal and vertical velocity
