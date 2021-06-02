@@ -58,21 +58,10 @@
 
         }
 
-        footer {
-            background-color: #f0f0f0;
-            margin-top: 1em;
-            text-align: center;
-            position: relative;
-            bottom: 0;
-            padding-top: 1em;
-            padding-bottom: 1em;
-            width: 100%;
-        }
-
         #renderport {
             margin: auto;
             border-radius: 5px;
-            background-color: #0f0f13;
+            background-color: black;
             padding: 0px;
             width: 1400px;
             padding: 10px;
@@ -131,11 +120,16 @@
             </div>
 
             <div class="col-12">
+                <button id='positionReset' type="button" class="input-lg btn btn-primary cusbutton">رجع الكوره مكانها
+                    الاول</button>
+            </div>
+            <div class="col-12">
                 <button id='start' type="button" class="input-lg btn btn-primary cusbutton">ابتدي</button>
             </div>
             <div class="col-12">
                 <button id='reset' type="button" class="input-lg btn btn-primary cusbutton">عيد</button>
             </div>
+
             <!-- <input type="number" placeholder="الزاويه" class="frminp" id="angl"> -->
             <!-- <input type="number" placeholder="السرعه" class="frminp" id="vel"> -->
             <!-- <button type="button" class="btn btn-default" id='start'>ابدا</button>
@@ -164,7 +158,8 @@
                 'velocity': 'vel',
                 'startButton': 'start',
                 'resetButton': 'reset',
-                'header': 'header'
+                'header': 'header',
+                'positionReset': 'positionReset'
             }
 
             let renderPort = document.getElementById(domElements['renderPort']),
@@ -174,9 +169,11 @@
                 startButton = document.getElementById(domElements['startButton']),
                 resetButton = document.getElementById(domElements['resetButton']),
                 header = document.getElementById(domElements['header']),
+                positionResetButton = document.getElementById(domElements['positionReset']),
+
                 ball,
                 ballStartPosition = { x: 90, y: 390 },
-                renderWidt = 1350,
+                renderWidt = 1370,
                 renderHeight = 700;
             // module aliases
             const Engine = Matter.Engine,
@@ -206,6 +203,9 @@
                         // element: header,
                         intro: "اهلا بيك في تجربه حركه المقذوفات 	&#127881;	&#127881;	&#127881;"
                     }, {
+                        element: renderPort,
+                        intro: "حرك الكوره في المكان اللي انت حابب تبتدي بيه "
+                    }, {
                         element: angleInput,
                         intro: "دخل الزاويه"
                     }
@@ -216,7 +216,7 @@
                         element: startButton,
                         intro: "ابتدي"
                     }, {
-                        element: startButton,
+                        element: resetButton,
                         intro: "دوس اعاده عشان تكمل تاني"
                     }
                     ]
@@ -257,8 +257,8 @@
                     height: renderHeight,
                     //showVelocity: true,
                     //showCollisions: true,
-
-                    background: '#FFFFFF'
+                    wireframes: false,
+                    background: '#161515'
                 }
             });
             const mouse = Mouse.create(render.canvas);
@@ -274,18 +274,13 @@
 
 
             let ground = Bodies.rectangle(400, renderHeight - 5, 5000, 60, {
-                isStatic: true,
-                render: {
-                    fillStyle: '#fed73e',
-                    lineWidth: 5,
-                    strokeStyle: '#000',
-                }
+                isStatic: true
             });
             ball = Bodies.circle(90, 390, 30, {
                 // friction: 0, frictionAir: 0, restitution: 1,
                 render: {
                     fillStyle: '#dd4444',
-                    strokeStyle: '#222222',
+                    strokeStyle: '#2b2b2c',
                     lineWidth: 3,
                 }
             });
@@ -331,8 +326,13 @@
 
             }
 
+            function positionReset() {
+                Matter.Body.setPosition(ball, ballStartPosition);
+            }
+
             startButton.addEventListener("click", run);
             resetButton.addEventListener("click", reset);
+            positionResetButton.addEventListener("click", positionReset);
 
         })
     </script>
